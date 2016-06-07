@@ -19,7 +19,10 @@ def combine_citation_links(soup):
             e.previous_sibling.replace_with(", ")
 
         # also ignore just year links, we might just have fixed the space before
-        if e.contents[0].isnumeric():
+        try:
+            if e.contents[0].isnumeric():
+                continue
+        except TypeError:  # 'NoneType' object is not callable
             continue
 
         # Process text like '<a>Author</a>&nbsp;[<a>Year</a>]'
